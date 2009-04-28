@@ -1,0 +1,12 @@
+History.txt
+Manifest.txt
+README.rdoc
+Rakefile
+lib/migrator.rb
+lib/migrator/version.rb
+lib/migrator/exceptions.rb
+lib/migrator/adapter.rb
+lib/migrator/abstract_adapter.rb
+lib/migrator/migrator.rb
+spec/migrator_spec.rb
+spec/mock_adapter.rb
