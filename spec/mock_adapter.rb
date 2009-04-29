@@ -30,13 +30,13 @@ class MockAdapter < Aef::Migrator::AbstractAdapter
   end
 
   def process(target_version)
-    puts "Migrating from #{version} to #{target_version}" if @verbose
+    puts "Migrating from #{version} to #{target_version} (#{versions_hash[target_version]})" if @verbose
 
     self.version = target_version
   end
 
   def revert(target_version)
-    puts "Unmigrating from #{version} to #{target_version}" if @verbose
+    puts "Unmigrating from #{version} to #{target_version} (#{versions_hash[version]})" if @verbose
 
     self.version = target_version
   end
