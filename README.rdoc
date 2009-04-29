@@ -6,31 +6,105 @@
 
 == DESCRIPTION:
 
-Migrator is a Ruby library and commandline tool to help with simple task of
-renaming or copying files for quick backup purposes. For instance by creating
-a copy of a list of files while adding .bak to the copies filenames. Migrator
-gives you control over the extension to be added to or removed from the file
-and whether it should be moved or copied.
+Migrator is a Ruby library for building general purpose versioning systems in
+the style of ActiveRecords migrations.
 
 == FEATURES/PROBLEMS:
 
-* Usable as library and commandline tool
 * Tested and fully working on:
   * Ubuntu Linux 8.10 i386_64 (Ruby 1.8.7 and 1.9.1p0)
   * Debian GNU/Linux 4.0 i386 (Ruby 1.8.6)
   * On Windows XP i386 (Ruby 1.8.6)
-* On Windows XP i386 (Ruby 1.8.6) there were some problems testing the
-  environment variable choices. Two tests are failing but the programs seems
-  to work correctly. If anyone finds the problem, please contact me.
-* The commandline tool doesn't work with Ruby 1.9.x because the user-choices gem
-  is not yet updated. A patch is available here:
-  https://rubyforge.org/tracker/index.php?func=detail&aid=24307&group_id=4192&atid=16176
 
 == SYNOPSIS:
 
 Load the gem:
 
   require 'migrator'
+
+Build an adapter:
+
+  class Adapter
+    include Aef::Migrator::Adapter
+    
+    # version() has to reflect the current version. Also version=() must exist
+    # to set the current version
+    attr_accessor :version,
+
+    # versions() has to provide a list of all versions in correct order
+    attr_accessor :versions
+
+    def initialize
+      self.versions = %w{a b c d e}
+      self.version = 'c'
+    end
+
+    # process() has to do the work behind a migration in forward direction. Will
+    # be called multiple times for multistep migrations.
+    def process(target_version)
+      puts "Migrating from #{version} to #{target_version}"
+
+      self.version = target_version
+    end
+
+    # revert() has to do the work behind a migration in backward direction. Will
+    # be called multiple times for multistep migrations.
+    def revert(target_version)
+      puts "Unmigrating from #{version} to #{target_version}"
+
+      self.version = target_version
+    end
+  end
+
+Notice that the module Aef::Migrator::Adapter and the class
+Aef::Migrator::AbstractAdapter both provide the basic method definitions for an
+adapter but no functionality. The advantage are better error messages when you
+forget to implement something, but you don't have to use either, as
+Aef::Migrator defines an adapter only by checking for required methods.
+
+Now we setup the migrator:
+
+  migrator = Aef::Migrator.new(Adapter.new)
+
+After that we can use the versioning backend provided by the adapter to do
+migrations:
+
+  migrator.version
+  # => "c"
+
+  migrator.up
+  migrator.version
+  # => "d"
+
+  migrator.up.version
+  # => "e"
+
+  migrator.down('b')
+  migrator.version
+  # => "b"
+
+  migrator.migrate('e').version
+  # => "e"
+
+When migrations cannot be done, exceptions of the baseclass Aef::Migrator::Error
+are raised. If there is a problem with the Adapter the exceptions will be of
+Aef::Migrator::AdapterError which is a subclass of Aef::Migrator::Error.
+Exceptions informing about unmatched migration constraints are from the subclass
+Aef::Migrator::MigrationError.
+
+We can also check if a migration is possible before running it. This way we
+don't have to deal with exceptions when a migration cannot be done.
+
+  migrator.migratable?('e')
+  # => false
+
+  migrator.upable?
+  # => false
+
+  migrator.downable?('c')
+  # => true
+
+See the files in the spec subdirectory for further examples of usage.
 
 == REQUIREMENTS:
 
@@ -45,10 +119,6 @@ Load the gem:
 === Normal
 
   gem install migrator
-
-Additionally for the commandline tool:
-
-  gem install user-choices
 
 === High security (recommended)
 
