@@ -14,6 +14,7 @@ Hoe.spec('migrator') do
   self.spec_extras = {
     :rdoc_options => ['--main', 'README.rdoc', '--inline-source', '--line-numbers', '--title', 'Migrator']
   }
+  self.rspec_options = ['--options', 'spec/spec.opts']
 end
 
 # vim: syntax=Ruby
