@@ -15,6 +15,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+# This module implements the interface for an adapter required by Aef::Migrator.
+# See also: AbstractAdapter.
 module Aef::Migrator::Adapter
   def process(target_version)
     raise NotImplementedError, 'The process method needs to be implemented'

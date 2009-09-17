@@ -1,26 +1,31 @@
 = Migrator
 
-* Project: https://rubyforge.org/projects/aef/
-* RDoc: http://aef.rubyforge.org/migrator/
+* Project: https://rubyforge.org/projects/migrator/
+* RDoc: http://migrator.rubyforge.org/
 * Github: http://github.com/aef/migrator/
 
 == DESCRIPTION:
 
 Migrator is a Ruby library for building general purpose versioning systems in
-the style of ActiveRecords migrations.
+the style of ActiveRecord's migrations.
 
 == FEATURES/PROBLEMS:
 
+* Completely written in Ruby
 * Tested and fully working on:
-  * Ubuntu Linux 8.10 i386_64 (Ruby 1.8.7 and 1.9.1p0)
-  * Debian GNU/Linux 4.0 i386 (Ruby 1.8.6)
-  * On Windows XP i386 (Ruby 1.8.6)
+  * Ubuntu Linux 8.10 amd64/x86_64
+    * Ruby 1.8.7p72
+    * Ruby 1.9.1p129
+  * Debian GNU/Linux 4.0 x86
+    * Ruby 1.8.6
+  * On Windows XP x86
+    * Ruby 1.8.6
 
 == SYNOPSIS:
 
 Load the gem:
 
-  require 'migrator'
+  require 'aef/migrator'
 
 Build an adapter:
 
@@ -111,14 +116,13 @@ See the files in the spec subdirectory for further examples of usage.
 * rubygems
 
 === Additional for automated testing
-* hoe
-* rspec
+* hoe (>= 2.3.2)
+* rspec (>= 1.2.8)
 
 == INSTALL:
 
-=== Normal
-
-  gem install migrator
+On *nix systems you may need to prefix the command with sudo to get root
+privileges.
 
 === High security (recommended)
 
@@ -138,24 +142,32 @@ following command:
 
   gem install migrator --ignore-dependencies -P HighSecurity
 
-Please notice that you will need other keys for dependent libraries, so you may
+Please notice that you may need other keys for dependent libraries, so you may
 have to install dependencies manually.
+
+=== Normal (insecure)
+
+  gem install migrator
+
+=== Github (also insecure)
+
+Alternatively you could install migrator from github which may be a bit more
+up to date. The version may however not be as stable as the normal gem and there
+is no way to install the gem securely. Therefore this is not recommended.
+
+  gem install aef-migrator --source http://gems.github.com
 
 === Automated testing
 
 You can test this package through rspec on your system. First find the path
 where the gem was installed to:
 
-  gem which migrator
+  gem which aef/migrator
 
 Go into the root directory of the installed gem and run the following command
 to start the test runner:
 
   rake spec
-
-On Windows systems you have to run the following instead:
-
-  spec spec/**/*_spec.rb
 
 If something goes wrong you should be noticed through failing examples.
 

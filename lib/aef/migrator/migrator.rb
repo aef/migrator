@@ -15,6 +15,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+# Class for building general purpose versioning systems in the style of
+# ActiveRecord's migrations. An adapter object is needed for any instance of
+# this class to have any use. See Adapter and AbstractAdapter for the required
+# interface.
 class Aef::Migrator
   VERSION = '1.0.0'
 

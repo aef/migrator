@@ -15,7 +15,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-# Usable as a baseclass for an adapter
+# This class implements the interface for an adapter required by Aef::Migrator
+# and could be used as an abstract base class. See also: Adapter
 class Aef::Migrator::AbstractAdapter
   include Aef::Migrator::Adapter
 
