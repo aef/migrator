@@ -16,6 +16,29 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 class Aef::Migrator
+  VERSION = '1.0.0'
+
+  # Baseclass for all Migrator specific exceptions
+  class Error < RuntimeError; end
+
+  # Baseclass for exceptions describing adapter errors
+  class AdapterError < Error; end
+  class AdapterMissingError < AdapterError; end
+  class AdapterMethodMissingError < AdapterError; end
+  class CurrentVersionInvalidError < AdapterError; end
+
+  # Baseclass for exceptions describing errors while processing migrations
+  class MigrationError < Error; end
+  class AlreadyOnTopError < MigrationError; end
+  class AlreadyOnBottomError < MigrationError; end
+  class TargetVersionInvalidError < MigrationError; end
+  class UpMigrationInvalidError < MigrationError; end
+  class DownMigrationInvalidError < MigrationError; end
+  class MigrationUnneccessaryError < MigrationError; end
+
+  autoload :Adapter, 'aef/migrator/adapter'
+  autoload :AbstractAdapter, 'aef/migrator/abstract_adapter'
+
   attr_accessor :adapter
 
   def initialize(adapter)

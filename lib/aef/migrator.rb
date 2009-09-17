@@ -15,6 +15,13 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-class Aef::Migrator
-  VERSION = '1.0.0'
+# Namespace for projects of Alexander E. Fischer <aef@raxys.net>
+#
+# If you want to be able to simply type Example instead of Aef::Example to
+# address classes in this namespace simply write the following before using the
+# classes:
+#
+#  include Aef
+module Aef
+  autoload :Migrator, 'aef/migrator/migrator'
 end

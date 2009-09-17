@@ -15,7 +15,9 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-require 'lib/migrator'
+$LOAD_PATH.unshift('lib')
+
+require 'aef/migrator'
 require 'spec/mock_adapter'
 
 Spec::Runner.configure do |config|
