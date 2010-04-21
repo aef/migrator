@@ -1,6 +1,7 @@
 = Migrator
 
 * Project: https://rubyforge.org/projects/migrator/
+* RDoc: http://rdoc.info/projects/aef/migrator/
 * RDoc: http://migrator.rubyforge.org/
 * Github: http://github.com/aef/migrator/
 
